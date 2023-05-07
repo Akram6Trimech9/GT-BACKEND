@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Add custom styles here */
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+    
+      .logo {
+        max-width: 100px;
+        margin-right: 20px;
+      }
+      .content {
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px solid #ccc;
+        margin: 20px;
+        border-radius: 5px;
+      }
+      .button {
+        background-color: #2ecc71;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 5px;
+        margin-top: 20px;
+        transition: background-color 0.3s ease;
+      }
+      .button:hover {
+        background-color: #27ae60;
+      }
+      .red {
+        color: red;
+      }
+      .green {
+        color: #2ecc71;
+      }
+      .grey {
+        color: #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+    <img width='350px'  src="https://scontent.ftun7-1.fna.fbcdn.net/v/t39.30808-6/302193037_578068567376841_6244750492582474948_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=zinmkkmRV3oAX_sULVF&_nc_ht=scontent.ftun7-1.fna&oh=00_AfBEVIAeQiSCHDfhjGQFgPRI0-XIGeaHv0bgG5ovoQegYQ&oe=64443476" alt="Your logo" class="logo" />
+      <p>Hey <span class="green"><%= name %></span>,</p>
+      <p>Thanks for signing up for GT HEALTH. We're very excited to have you on board.</p>
+      <p>To get started using GT HEALTH please confirm your account below:</p>
+      <a href="<%= confirmation_url %>" class="button">Confirm your account</a>
+      <p>If you're having trouble clicking the confirm account button, copy and paste the below URL into your web browser.</p>
+      <a href="<%= confirmation_url %>"><span class="red"><%= confirmation_url %></span></a>
+    </div>
+  </body>
+</html>
