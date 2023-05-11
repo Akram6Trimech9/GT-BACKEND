@@ -30,7 +30,6 @@ export class JoinedRoomService{ 
         .leftJoin('joined_room_entity.room', 'room')
         .where('room.id = :roomId', { roomId: room.id })
         .getMany()   
-           
           return query 
     }
 

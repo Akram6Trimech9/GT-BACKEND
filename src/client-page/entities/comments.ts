@@ -1,5 +1,5 @@
 import { User } from "src/users/entities/user.entity";
-import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Comments{
@@ -10,7 +10,10 @@ export class Comments{
     @Column()
     comment_desc : string 
 
-    @OneToMany(()=>User , user =>user.comments)
+    @Column()
+    rating : number 
+
+    @ManyToOne(()=>User , user =>user.comments)
     @JoinColumn()
     users : User
 

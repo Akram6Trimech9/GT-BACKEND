@@ -30,8 +30,9 @@ export class RoomService {
     const rooms = await this.roomRepository
       .createQueryBuilder('room')
       .leftJoinAndSelect('room.users', 'user')
+      .leftJoinAndSelect('user.avatar', 'avatar')
       .where('user.id = :userId', { userId })
-      .leftJoinAndSelect('room.users', 'all_users')
+      .leftJoinAndSelect('user.avatar', 'all_avatars')
       .getMany();      
     return rooms;
   }

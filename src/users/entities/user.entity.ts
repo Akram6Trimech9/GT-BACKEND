@@ -2,7 +2,7 @@ import { connectedUserEntity } from "src/chat/model/connected-user/connected-use
 import { JoinedRoomEntity } from "src/chat/model/joined-room/joined-room.entity";
 import { MessageEntity } from "src/chat/model/message/message.entity";
 import { Room } from "src/chat/model/room/room.entity";
-import { Comments } from "src/client-page/entities/peopele-comments";
+import { Comments } from "src/client-page/entities/comments";
 import { Column, Entity, JoinColumn, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Role } from "../enums/role";
 import LocalFile from "./localfile";

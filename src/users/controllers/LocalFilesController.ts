@@ -54,4 +54,8 @@ import { UsersService } from '../services/users.service';
     seeUploadedFile(@Param('imgpath') image, @Res() res) {
      return res.sendFile(image, { root: './uploadedFiles/avatar' });
 }
+@Get('slider/:imgpath')
+seeUploadedSliders(@Param('imgpath') image, @Res() res) {
+ return res.sendFile(image, { root: './uploadedFiles/slider' });
+}
   }

@@ -14,14 +14,12 @@ export class ResetPasswordController{
     async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDTO): Promise<void> {
         return await this.resetService.forgotPassword(forgotPasswordDto);
     }
-    
-    @UseGuards(AccessTokenGuard)
+
+    // @UseGuards(AccessTokenGuard)
     @Patch('/changepassword')
     @HttpCode(200)
      async changePassword(@Body() changeDto: changePasswordDto ): Promise<boolean> {     
-        console.log(changeDto);
-           
-        return await  this.resetService.changePassword(changeDto);
+         return await  this.resetService.changePassword(changeDto);
     }
 
 

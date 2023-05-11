@@ -23,13 +23,16 @@ export class AuthService {
                )  { }
 
   async register(userDto: UserDto) : Promise<any> {
+
+     
     const userExists = await this.userRepository.findOneBy(
      { email : userDto.email}
-    );
+    );    
     if (userExists) {
       throw new BadRequestException('User already exists');
     }
     const hash = await bcrypt.hash(userDto.password,12) ;
+
     const user = new User(userDto.firstName,userDto.lastName,userDto.email.toLowerCase(),userDto.country,userDto.address,hash,userDto.role,"")
     const newUser =  await this.userRepository.save(user)    
     const tokens = await this.getTokens(newUser.id, newUser.email ,newUser.role);
@@ -104,7 +107,7 @@ export class AuthService {
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: '1h',
+          expiresIn: '2h',
         },
       ),
       this.jwtService.signAsync(

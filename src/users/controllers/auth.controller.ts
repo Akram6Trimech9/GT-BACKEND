@@ -14,13 +14,13 @@ export class AuthController {
   @UseGuards(AuthGuard('local'))
   @Post('login')
   @HttpCode(202)
-  async login(@Request() req) {    
+  async login(@Request() req) {        
     return await  this.authService.login(req.user);
   }
 
   @Post('register')
   @HttpCode(201)
-  register(@Body() payload : UserDto) {    
+  register(@Body() payload : UserDto) {        
     return  this.authService.register(payload); 
   }
   @UseGuards(AccessTokenGuard)
@@ -39,7 +39,7 @@ refreshTokens(@Req() req) {
 }
 
 @Post('facebook')
-async loginFb(@Body() payload : any ){   
+async loginFb(@Body() payload : any ){
    return  await this.authService.loginWithFb(payload) 
 }
 

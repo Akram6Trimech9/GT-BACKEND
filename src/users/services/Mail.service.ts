@@ -5,7 +5,7 @@ export class MailService {
   constructor(private mailerService: MailerService) {}
 
   async sendUserWelcome(user: any, token: string) {    
-    const confirmation_url = `${process.env.CLIENT_URL}/confirm?token=${token}`;
+     const confirmation_url = `${process.env.CLIENT_URL}/confirm?token=${token}`;
     await this.mailerService.sendMail({
       to: user.email,
        subject: 'Welcome to GT HEALTH ! Confirm your Email',
@@ -18,7 +18,7 @@ export class MailService {
   }
 
   async  forgotpass(user : any , token :string ){
-    const reset_url = `${process.env.CLIENT_URL}/forgotPassword?token=${token}`;
+     const reset_url = `${process.env.CLIENT_URL}/forgotPassword?token=${token}`;
     await this.mailerService.sendMail({
         to: user.email,
         subject: 'Forgot Password',

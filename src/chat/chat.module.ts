@@ -1,5 +1,6 @@
  import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import LocalFile from 'src/users/entities/localfile';
 import { User } from 'src/users/entities/user.entity';
  import { UsersModule } from 'src/users/users.module';
 import { ChatGateway } from './gateway/chat/chat.gateway';
@@ -14,7 +15,7 @@ import { RoomService } from './services/room/room.service';
  
 @Module({
    imports:[UsersModule,
-    TypeOrmModule.forFeature([connectedUserEntity,MessageEntity,JoinedRoomEntity,Room,User]),
+    TypeOrmModule.forFeature([connectedUserEntity,MessageEntity,JoinedRoomEntity,Room,User,LocalFile]),
 
 ],
   providers: [ChatGateway , RoomService,ConnectedUserService , JoinedRoomService, MessageService],

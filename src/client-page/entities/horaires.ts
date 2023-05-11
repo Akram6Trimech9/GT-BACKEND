@@ -13,8 +13,15 @@ export class Horaires {
     date_fin : Date 
     
     @Column()
+    date_hours_deb : string 
+
+    @Column()
+    date_hours_fin : string
+
+    @Column()
     weeknd_deb : Date
 
     @Column()
     weeknd_fin : Date
+    
 }

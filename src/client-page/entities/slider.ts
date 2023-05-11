@@ -7,9 +7,8 @@ export class Slider {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @OneToMany(() => LocalFile, files => files.slider )
+    @OneToMany(() => LocalFile, files => files.slider, { cascade: ['insert', 'update', 'remove'] })
     images: LocalFile[];
-    
 
     @Column()
     title: string

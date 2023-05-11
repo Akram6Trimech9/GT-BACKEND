@@ -15,7 +15,8 @@ import { Room } from './chat/model/room/room.entity';
 import * as Joi from '@hapi/joi';
 import LocalFile from './users/entities/localfile';
 import { Slider } from './client-page/entities/slider';
-import { Comments } from './client-page/entities/peopele-comments';
+import { Comments } from './client-page/entities/comments';
+import { Horaires } from './client-page/entities/horaires';
 @Module({
   imports: [ 
     UsersModule  , 
@@ -26,7 +27,7 @@ import { Comments } from './client-page/entities/peopele-comments';
       username: 'root',
       password: 'password',
       database: 'gt',
-      entities: [User,connectedUserEntity,MessageEntity,JoinedRoomEntity,Room,LocalFile,Slider,Comments],
+      entities: [User,connectedUserEntity,MessageEntity,JoinedRoomEntity,Room,LocalFile,Slider,Comments,Horaires],
       synchronize: true,
     }),
     ConfigModule.forRoot({
@@ -50,12 +51,15 @@ import { Comments } from './client-page/entities/peopele-comments';
     consumer
       .apply(AuthMiddleware)
       .exclude(
+        { path: '/auth/refresh', method: RequestMethod.GET },
         { path: '/uploadedFiles/avatar/:filename', method: RequestMethod.GET },
+        { path: '/uploadedFiles/slider/:filename', method: RequestMethod.GET },
         { path: '/email-confirmation/confirm', method: RequestMethod.POST },
         { path: '/users', method: RequestMethod.POST },
         { path: '/users/search', method: RequestMethod.POST },
         { path: '/home/slider', method: RequestMethod.POST },
         { path: '/home/slider', method: RequestMethod.GET },
+        { path: '/local-files/:id', method: RequestMethod.GET },
         { path: '/local-files/:id', method: RequestMethod.GET },
         { path: '/users', method: RequestMethod.GET },
         { path: '/users/:id', method: RequestMethod.GET },
@@ -64,7 +68,6 @@ import { Comments } from './client-page/entities/peopele-comments';
         { path: '/auth/login', method: RequestMethod.POST },
         { path: '/auth/register', method: RequestMethod.POST },
         { path: '/auth/logout', method: RequestMethod.POST },
-        { path: '/auth/refresh', method: RequestMethod.GET },
         { path: '/reset/send', method: RequestMethod.POST },
         { path: '/reset/changepassword', method: RequestMethod.PATCH },
         { path: '/auth/facebook', method: RequestMethod.POST }, 

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Slider } from './entities/slider';
-import { Comments } from './entities/peopele-comments';
+import { Comments } from './entities/comments';
 import { AproposPageService } from './services/apropos-page/apropos-page.service';
 import { BlogPageService } from './services/blog-page/blog-page.service';
 import { ServicesPageService } from './services/services-page/services-page.service';
@@ -15,10 +15,11 @@ import { HomePageService } from './services/home-page/home-page.service';
 import { Horaires } from './entities/horaires';
 import LocalFile from 'src/users/entities/localfile';
 import { UsersModule } from 'src/users/users.module';
+import { User } from 'src/users/entities/user.entity';
 
 @Module({
   imports:[
-     TypeOrmModule.forFeature([Slider,Comments,Horaires,LocalFile]),
+     TypeOrmModule.forFeature([Slider,Comments,Horaires,LocalFile,User]),
   ],
   controllers: [AproposPageController,HomePageController,BlogPageController,ServicesPageController,ContactPageController],
   providers: [AproposPageService, HomePageService,BlogPageService,ServicesPageService,ContactPageService]

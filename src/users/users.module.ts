@@ -27,6 +27,8 @@ import LocalFilesService from './services/localfile.service';
 import LocalFilesInterceptor from 'src/common/interceptor/localfile.interceptor';
 import LocalFile from './entities/localfile';
 import LocalFilesController from './controllers/LocalFilesController';
+import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
+import { LocalAuthGuard } from 'src/common/guards/local.guard';
 @Module({
 
   imports :[   
@@ -49,7 +51,7 @@ import LocalFilesController from './controllers/LocalFilesController';
         port:587,
         auth: {
           user:"web-admin@gt-health.tn",
-          pass:"xsmtpsib-84136c5035b5b5ff7e2c442737413788ecd7702504df30cba3f0a4d3cb9ec7e1-2E0DHYztvK391jAC"
+          pass:"xsmtpsib-84136c5035b5b5ff7e2c442737413788ecd7702504df30cba3f0a4d3cb9ec7e1-EDF2cr9tbBL3pxya"
         }
       },
       defaults: {
@@ -67,16 +69,21 @@ import LocalFilesController from './controllers/LocalFilesController';
   ],
   controllers: [UsersController,AuthController,ResetPasswordController,EmailConfirmationController,LocalFilesController],
   providers: [UsersService, 
-    AccessTokenStrategy, 
-    RefreshTokenStrategy ,
-    RolesGuard,
-    RefreshTokenGuard,
     AuthService,
     ResetPasswordService,
-     LocalStrategy,
     ConfirmEmailService,
     LocalFilesService,
-    MailService]
+     MailService,
+
+     AccessTokenStrategy, 
+     RefreshTokenStrategy ,
+     RolesGuard,
+     RefreshTokenGuard,
+     LocalStrategy,
+     AccessTokenGuard,
+     LocalAuthGuard,
+     RefreshTokenGuard,
+    ]
     ,exports:[
       AuthService,
       UsersService

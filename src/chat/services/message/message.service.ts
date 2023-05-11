@@ -24,6 +24,7 @@ export class MessageService {
       .leftJoin('message.room', 'room')
       .where('room.id = :roomId', { roomId: room.id })
       .leftJoinAndSelect('message.user', 'user')
+      .leftJoinAndSelect('user.avatar', 'avatar')
       .orderBy('message.createdAt', 'ASC')
       .getMany()
     return query
