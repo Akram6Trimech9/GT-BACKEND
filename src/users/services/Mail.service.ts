@@ -1,8 +1,10 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
-@Injectable()
+ @Injectable()
 export class MailService {
-  constructor(private mailerService: MailerService) {}
+  constructor(private mailerService: MailerService,
+       
+    ) {}
 
   async sendUserWelcome(user: any, token: string) {    
      const confirmation_url = `${process.env.CLIENT_URL}/confirm?token=${token}`;
@@ -28,4 +30,20 @@ export class MailService {
          reset_url,
     }})
   }
+  async sendEmailToSubs(emailObj: { content: string, object: string }, maillist: any[], attachments?: { filename: string, content: Buffer }[]) {
+    const content = emailObj.content;
+    const mailOptions = {
+      to: maillist,
+      subject: emailObj.object,
+      template: './sendemailtosubs',
+      context: {
+        content,
+      },
+    };
+    if (attachments && attachments.length > 0) {
+      mailOptions['attachments'] = attachments;
+    }
+    await this.mailerService.sendMail(mailOptions);
+  }
+
 }

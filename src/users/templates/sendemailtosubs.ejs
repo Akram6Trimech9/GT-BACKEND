@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Email Template</title>
+    <style>
+        /* Client-specific Styles */
+        #outlook a {
+            padding: 0;
+        }
+
+        /* Mobile-specific Styles */
+        @media screen and (max-width: 480px) {
+            /* Add mobile-specific styles here */
+        }
+
+        /* General Styles */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6em;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        p {
+            margin: 0 0 20px;
+            font-size: 16px;
+            line-height: 1.6em;
+        }
+
+        ul,
+        ol {
+            margin: 0 0 20px 20px;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+            font-size: 16px;
+            line-height: 1.6em;
+        }
+
+        a {
+            color: #1ab394;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0d8775;
+            text-decoration: underline;
+        }
+
+        .container {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -16px;
+        }
+
+        .col-12 {
+            width: 100%;
+            padding: 0 16px;
+        }
+
+        .col-6 {
+            width: 50%;
+            padding: 0 16px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .btn {
+            display: inline-block;
+            color: #fff;
+            background-color: #1ab394;
+            border: 1px solid #1ab394;
+            border-radius: 4px;
+            padding: 10px 16px;
+            margin: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 1.5;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0d8775;
+            border-color: #0d8775;
+        }
+
+        .header {
+            background-color: #1ab394;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            background-color: #f9f9f9;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            color: #ccc;
+            font-size: 12px;
+        }
+        .social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+          }
+          .social-link {
+            display: block;
+            margin: 0 10px;
+            width:
+          }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+          <img src="." alt="Logo" class="logo" />
+         </div>
+        <div class="row">
+          <div class="col-12">
+            <p>Dear subscriber ,</p>
+            <p><%= content %></p>
+
+             <p>Thanks,</p>
+            <p>The GT HEALTH Team</p>
+          </div>
+        </div>
+        <div class="text-center">
+          <a href="" class="btn"> Check our website</a>
+        </div>
+        <div class="social">
+          <a href="#" class="social-link">Facebook</a> <br />
+          <a href="#" class="social-link">Twitter</a><br />
+          <a href="#" class="social-link">Instagram</a><br />
+        </div>
+        <div class="footer">
+          <p>Copyright © 2023
+            <a href="#">GT-HEALTH</a>. All rights reserved.</p>
+        </div>
+      </div>
+ 
+</body>
+</html>

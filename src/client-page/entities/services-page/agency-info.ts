@@ -5,24 +5,12 @@ export class AgencyInfo{
     
     @PrimaryGeneratedColumn("uuid")
     id: string
-
-    @Column()
-    patients: number
     
     @Column()
-    doctors :number
-    
-    @Column()
-    specialities: number
+    Qualityone :string 
 
     @Column()
-    description : string 
-
-    @Column()
-    histroy_title :string 
-
-    @Column() 
-    history_description : string 
+    Qualitytwo :string 
 
     @Column()
     contact_info : string 

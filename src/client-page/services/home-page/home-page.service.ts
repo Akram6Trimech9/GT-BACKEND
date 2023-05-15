@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectEntityManager, InjectRepository } from '@nestjs/typeorm';
-import { Horaires } from 'src/client-page/entities/horaires';
-import { Comments } from 'src/client-page/entities/comments';
-import { Slider } from 'src/client-page/entities/slider';
+import { Comments } from 'src/client-page/entities/client-page/comments';
+import { Horaires } from 'src/client-page/entities/client-page/horaires';
+ import { Slider } from 'src/client-page/entities/client-page/slider';
 import LocalFile from 'src/users/entities/localfile';
 import { User } from 'src/users/entities/user.entity';
 import { EntityManager, Repository } from 'typeorm';

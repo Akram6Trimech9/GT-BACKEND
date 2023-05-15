@@ -51,7 +51,7 @@ import { LocalAuthGuard } from 'src/common/guards/local.guard';
         port:587,
         auth: {
           user:"web-admin@gt-health.tn",
-          pass:"xsmtpsib-84136c5035b5b5ff7e2c442737413788ecd7702504df30cba3f0a4d3cb9ec7e1-EDF2cr9tbBL3pxya"
+          pass:"xsmtpsib-84136c5035b5b5ff7e2c442737413788ecd7702504df30cba3f0a4d3cb9ec7e1-IXcAysnS0k1zGNmD"
         }
       },
       defaults: {
@@ -86,7 +86,8 @@ import { LocalAuthGuard } from 'src/common/guards/local.guard';
     ]
     ,exports:[
       AuthService,
-      UsersService
+      UsersService,
+      MailService
      ]
 
 })

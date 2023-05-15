@@ -2,8 +2,8 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, UploadedFiles, UseIn
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import path from 'path';
-import { Horaires } from 'src/client-page/entities/horaires';
-import { Slider } from 'src/client-page/entities/slider';
+import { Horaires } from 'src/client-page/entities/client-page/horaires';
+import { Slider } from 'src/client-page/entities/client-page/slider';
  import { HomePageService } from 'src/client-page/services/home-page/home-page.service';
 
 @Controller('home')

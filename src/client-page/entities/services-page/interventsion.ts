@@ -2,19 +2,17 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
-export class blog {
+export class Interventions {
+
     @PrimaryGeneratedColumn("uuid")
     id: string
-
-    @Column()
-    image: string
 
     @Column()
     title: string
 
     @Column()
-    sub_title: string
+    description: string
 
     @Column()
-    desciption: string
+    icon : string 
 }

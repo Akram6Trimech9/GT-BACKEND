@@ -1,3 +1,4 @@
+import { Max, Min } from "class-validator";
 import { User } from "src/users/entities/user.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -9,9 +10,11 @@ export class Comments{
     
     @Column()
     comment_desc : string 
-
+  
     @Column()
-    rating : number 
+    @Min(1, { message: "Rating must be between 1 and 5" })
+    @Max(5, { message: "Rating must be between 1 and 5" })
+    rating: number;
 
     @ManyToOne(()=>User , user =>user.comments)
     @JoinColumn()

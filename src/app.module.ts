@@ -14,9 +14,16 @@ import { JoinedRoomEntity } from './chat/model/joined-room/joined-room.entity';
 import { Room } from './chat/model/room/room.entity';
 import * as Joi from '@hapi/joi';
 import LocalFile from './users/entities/localfile';
-import { Slider } from './client-page/entities/slider';
-import { Comments } from './client-page/entities/comments';
-import { Horaires } from './client-page/entities/horaires';
+import { Slider } from './client-page/entities/client-page/slider';
+import { Comments } from './client-page/entities/client-page/comments';
+import { Horaires } from './client-page/entities/client-page/horaires';
+import { history } from './client-page/entities/apropos-page/history.entity';
+import { AnswerQuestion } from './client-page/entities/apropos-page/faq-et-autres';
+import { subscriber } from './client-page/entities/apropos-page/subscribers.entity';
+import { AgencyInfo } from './client-page/entities/services-page/agency-info';
+import { Interventions } from './client-page/entities/services-page/interventsion';
+import { blog } from './client-page/entities/contact-blog/blog';
+import { Contacts } from './client-page/entities/contact-blog/contact';
 @Module({
   imports: [ 
     UsersModule  , 
@@ -27,7 +34,7 @@ import { Horaires } from './client-page/entities/horaires';
       username: 'root',
       password: 'password',
       database: 'gt',
-      entities: [User,connectedUserEntity,MessageEntity,JoinedRoomEntity,Room,LocalFile,Slider,Comments,Horaires],
+      entities: [User,connectedUserEntity,MessageEntity,JoinedRoomEntity,Room,LocalFile,Slider,Comments,Horaires,history,AnswerQuestion,subscriber,AgencyInfo,Interventions,blog,Contacts],
       synchronize: true,
     }),
     ConfigModule.forRoot({
@@ -54,6 +61,8 @@ import { Horaires } from './client-page/entities/horaires';
         { path: '/auth/refresh', method: RequestMethod.GET },
         { path: '/uploadedFiles/avatar/:filename', method: RequestMethod.GET },
         { path: '/uploadedFiles/slider/:filename', method: RequestMethod.GET },
+        { path: '/uploadedFiles/blog/:filename', method: RequestMethod.GET },
+        { path: '/uploadedFiles/history-pic/:filename', method: RequestMethod.GET },
         { path: '/email-confirmation/confirm', method: RequestMethod.POST },
         { path: '/users', method: RequestMethod.POST },
         { path: '/users/search', method: RequestMethod.POST },

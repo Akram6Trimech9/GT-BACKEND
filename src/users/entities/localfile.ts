@@ -1,5 +1,7 @@
 import { on } from "events";
-import { Slider } from "src/client-page/entities/slider";
+import { history } from "src/client-page/entities/apropos-page/history.entity";
+import { Slider } from "src/client-page/entities/client-page/slider";
+import { blog } from "src/client-page/entities/contact-blog/blog";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "./user.entity";
 
@@ -24,6 +26,12 @@ class LocalFile {
   @ManyToOne(()=> Slider , slider => slider.images)
   slider: Slider
   
+  @OneToOne(()=>history , history=> history.history_picture)
+  history_picture : history
+
+  @OneToOne(()=>blog , blog=> blog.image)
+  blog_picture : blog
+
 
 }
  
