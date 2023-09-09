@@ -107,7 +107,7 @@ export class AuthService {
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: '2h',
+          expiresIn: '7h',
         },
       ),
       this.jwtService.signAsync(
@@ -122,11 +122,12 @@ export class AuthService {
         },
       ),
     ]);
-
+ 
     return {
       accessToken,
       refreshToken,
     };
+    
   }
 
 
@@ -144,6 +145,10 @@ export class AuthService {
     if (!user || !user.refreshToken){
       throw new ForbiddenException('Access Denied');
     } 
+     if (typeof refreshToken !== 'string' || typeof user.refreshToken !== 'string') {
+      throw new BadRequestException('Invalid refreshToken format');
+  }
+  
     const refreshTokenMatches = await bcrypt.compare(
       refreshToken,
       user.refreshToken,

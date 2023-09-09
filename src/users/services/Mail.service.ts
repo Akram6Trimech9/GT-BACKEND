@@ -1,5 +1,7 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import { Rdv } from 'src/rdv/entities/rdv.entity';
+import { User } from '../entities/user.entity';
  @Injectable()
 export class MailService {
   constructor(private mailerService: MailerService,
@@ -45,5 +47,21 @@ export class MailService {
     }
     await this.mailerService.sendMail(mailOptions);
   }
+  async sendUserRdvAccept(user: any, rdvDetails: any) {
+    const dateTime = new Date(rdvDetails.date).toLocaleString();
+
+    await this.mailerService.sendMail({
+      to: user.email,
+      subject: 'Rendezvous Confirmation',
+      template: './accept', 
+      context: { 
+        name: user.firstName,
+        date: dateTime,
+        additionalNote: rdvDetails.addionalNote || 'None',
+        // Add more context details if necessary
+      },
+    });
+}
+
 
 }

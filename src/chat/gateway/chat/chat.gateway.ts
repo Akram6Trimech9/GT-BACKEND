@@ -13,6 +13,7 @@ import { MessageService } from 'src/chat/services/message/message.service';
 import { UserI } from "src/users/entities/user.interface";
 import { joinedRoomsI } from 'src/chat/model/joined-room/joined-room.interface';
 import { messageI } from 'src/chat/model/message/message.interface';
+import { Role } from 'src/users/enums/role';
 
 @WebSocketGateway({cors:{origin:'http://localhost:4200'}})
 
@@ -108,12 +109,55 @@ export class ChatGateway implements   OnGatewayConnection, OnGatewayDisconnect ,
       )
       const room : RoomI = await this._roomService.getRoom(createdMessages.room.id)
       const JoinedUsers :joinedRoomsI[]= await this._joinedRoomService.findByRoom(room)
-       
     for(const user of JoinedUsers){ 
-       await this.server.to(user.socketId).emit('messageadded',createdMessages)
-       
+       await this.server.to(user.socketId).emit('messageadded',createdMessages)  
     }
   }
+    userstate : boolean = true
+  @SubscribeMessage('callUser')
+async call(socket: Socket, data: any) { 
   
- 
+    if (data && data.room) {
+
+        const room: RoomI = await this._roomService.getRoom(data.room.id);
+        
+        if(room.users && room.users.length > 0 ){
+          const filteredUsers = room.users.filter(item => (item.id !== data.caller.id) && (item.role !== Role.ADMIN));
+          console.log(filteredUsers);
+          
+      
+
+        let callerConnected = false;
+        for (const user of filteredUsers) { 
+            const connections: ConnectedUserI[] = await this._connectedService.findByUser(user);
+            if (connections && connections.length > 0) {
+                callerConnected = true;
+                for (const connection of connections) {
+                  this.userstate = true
+                  await this.server.to(socket.id).emit('userstate',this.userstate)
+
+                    await this.server.to(connection.socketId).emit('incomingCall', data);
+                }
+            }
+        }
+         if (!callerConnected) {
+            const messageText = `${data.caller.firstName} a essayé d'appeler.  `; 
+            const newMessage: messageI = {
+                text: messageText,
+                user: data.caller, 
+                room: room,
+            };
+            await this._messageService.create(newMessage);
+             await this.server.to(socket.id).emit('messageadded',newMessage)
+                this.userstate = false 
+             await this.server.to(socket.id).emit('userstate',this.userstate)
+
+        }
+      }
+    }
 }
+
+  
+}
+ 
+ 

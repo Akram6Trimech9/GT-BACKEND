@@ -1,31 +1,9 @@
-FROM node:18.12.1-alpine AS development
-
-WORKDIR /gt_health/api/src/app
-
-COPY package*.json  ./
-
-RUN npm install 
-
-COPY . . 
-
-RUN npm run build 
-
-EXPOSE ${PORT}
-
-##############
-##PRODUCTION##
-
-
-FROM node:18.12.1-alpine AS production
-
-ARG NODE_ENV=production
-
-ENV NODE_ENV=${NODE_ENV}
-
-WORKDIR /gt_health/api/src/app
-
-COPY --from=development  /gt_health/api/src/app  . 
-
-EXPOSE ${PORT}
-
-CMD [ "node","dist/main" ]
+FROM  node:18-alpine as node
+WORKDIR /app
+COPY . .
+RUN  npm install 
+RUN npm run build --prod
+FROM nginx:alpine
+WORKDIR /app
+COPY    nginx.conf  /etc/nginx/nginx.conf
+COPY   --from=node /app/dist/gt-front /usr/share/nginx/html

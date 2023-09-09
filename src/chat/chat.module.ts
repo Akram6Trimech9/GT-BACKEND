@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import LocalFile from 'src/users/entities/localfile';
 import { User } from 'src/users/entities/user.entity';
  import { UsersModule } from 'src/users/users.module';
+import { ChatController } from './chat-controller';
 import { ChatGateway } from './gateway/chat/chat.gateway';
 import { connectedUserEntity } from './model/connected-user/connected-user.entity';
 import { JoinedRoomEntity } from './model/joined-room/joined-room.entity';
@@ -18,6 +19,7 @@ import { RoomService } from './services/room/room.service';
     TypeOrmModule.forFeature([connectedUserEntity,MessageEntity,JoinedRoomEntity,Room,User,LocalFile]),
 
 ],
+controllers:[ChatController],
   providers: [ChatGateway , RoomService,ConnectedUserService , JoinedRoomService, MessageService],
 })
 export class ChatModule {}

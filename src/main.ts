@@ -1,6 +1,7 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { ExpressPeerServer } from 'peer';
 import { AppModule } from './app.module';
  async function bootstrap() {
   
@@ -13,7 +14,7 @@ async function ensureDatabaseDev(app:INestApplication){
  }
  app.setGlobalPrefix('api')
 
-
+ 
   const config = new DocumentBuilder()
   .setTitle('GT-HEALTH APIS')
   .setDescription('/* description */ ')
@@ -23,7 +24,7 @@ async function ensureDatabaseDev(app:INestApplication){
 const document = SwaggerModule.createDocument(app, config, {
   include: [],
   deepScanRoutes: true,
-  ignoreGlobalPrefix: false, // Include the global prefix in the Swagger documentation
+  ignoreGlobalPrefix: false, 
 });
 await ensureDatabaseDev(app);
 

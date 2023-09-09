@@ -4,8 +4,7 @@ import { User } from './entities/user.entity';
 import { UsersService } from './services/users.service';
 import { AuthController } from './controllers/auth.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { RefreshTokenStrategy } from './strategies/refreshToken.strategy';
-import { AccessTokenStrategy } from './strategies/accessToken.strategy';
+ import { AccessTokenStrategy } from './strategies/accessToken.strategy';
  import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
 import { RolesGuard } from 'src/common/guards/RolesGuard';
@@ -17,7 +16,7 @@ import { MailService } from './services/Mail.service';
 import { ResetPasswordService } from './services/reset.service';
 import { ConfirmEmailService } from './services/confirm.service';
 import { ResetPasswordController } from './controllers/reset-password.controller';
-import { RefreshTokenGuard } from 'src/common/guards/refreshToken.guard';
+import JwtRefreshGuard  from 'src/common/guards/refreshToken.guard';
 import { ConfigService } from '@nestjs/config';
 import { AuthMiddleware } from 'src/common/middleware/auth.middleware';
 import { ChatModule } from 'src/chat/chat.module';
@@ -29,20 +28,24 @@ import LocalFile from './entities/localfile';
 import LocalFilesController from './controllers/LocalFilesController';
 import { AccessTokenGuard } from 'src/common/guards/accessToken.guard';
 import { LocalAuthGuard } from 'src/common/guards/local.guard';
+import { CompleteInfo } from './entities/CompleteInfo';
+import { JwtRefreshTokenStrategy } from './strategies/refreshToken.strategy';
+import { CompleteInfoService } from './services/completeInfo.service';
+import { CompleteInfoController } from './controllers/completeInfo.controller';
 @Module({
 
   imports :[   
-    TypeOrmModule.forFeature([User,LocalFile]),
+    TypeOrmModule.forFeature([User,LocalFile , CompleteInfo]),
 
+    
     PassportModule.register({
       defaultStrategy: 'jwt',
-      // property: 'user',
      }),
      JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_ACCESS_SECRET'),
       }),
-      inject: [ConfigService],
+      inject: [ConfigService]
     }),
     
     MailerModule.forRoot({
@@ -51,7 +54,7 @@ import { LocalAuthGuard } from 'src/common/guards/local.guard';
         port:587,
         auth: {
           user:"web-admin@gt-health.tn",
-          pass:"xsmtpsib-84136c5035b5b5ff7e2c442737413788ecd7702504df30cba3f0a4d3cb9ec7e1-IXcAysnS0k1zGNmD"
+          pass:"xsmtpsib-84136c5035b5b5ff7e2c442737413788ecd7702504df30cba3f0a4d3cb9ec7e1-gABQEC5ZPNmazw8s"
         }
       },
       defaults: {
@@ -67,23 +70,24 @@ import { LocalAuthGuard } from 'src/common/guards/local.guard';
     }),
  
   ],
-  controllers: [UsersController,AuthController,ResetPasswordController,EmailConfirmationController,LocalFilesController],
-  providers: [UsersService, 
+  controllers: [UsersController,AuthController,ResetPasswordController,EmailConfirmationController,    CompleteInfoController,
+    LocalFilesController],
+  providers: [
+    JwtRefreshTokenStrategy ,
+    UsersService, 
     AuthService,
     ResetPasswordService,
     ConfirmEmailService,
     LocalFilesService,
      MailService,
-
+     JwtRefreshGuard,
      AccessTokenStrategy, 
-     RefreshTokenStrategy ,
-     RolesGuard,
-     RefreshTokenGuard,
-     LocalStrategy,
+      RolesGuard,
+      LocalStrategy,
      AccessTokenGuard,
+     CompleteInfoService,
      LocalAuthGuard,
-     RefreshTokenGuard,
-    ]
+     ]
     ,exports:[
       AuthService,
       UsersService,

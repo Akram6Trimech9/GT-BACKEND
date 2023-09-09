@@ -9,8 +9,10 @@ import { Repository } from 'typeorm';
 export class ContactPageService {
     constructor( @InjectRepository(blog)
     private  blogRepository: Repository<blog>,
+
     @InjectRepository(Contacts)
     private contactsRepository: Repository<Contacts>, 
+
     @InjectRepository(LocalFile)
     private  imageRepo: Repository<LocalFile>,){
     }
@@ -42,10 +44,17 @@ export class ContactPageService {
         return  await this.blogRepository.findOneBy({id});
       }
     async postContact(contact : any ) : Promise<any>{ 
-        return await this.contactsRepository.save(contact)
+        const cont = await this.contactsRepository.create(contact)
+        console.log(cont);
+        
+        return await this.contactsRepository.save(cont)
     }  
     async getAllContact() :Promise<Contacts[]>{
-        return  await this.contactsRepository.find()
+        
+        const contact=  await this.contactsRepository.find()
+        console.log("hey"),contact;
+        return contact
+
     }
     async deleteContact(id : string ): Promise<void>{
          await this.contactsRepository.delete({id : id })

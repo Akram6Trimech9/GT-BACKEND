@@ -1,25 +1,34 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
-export class RefreshTokenStrategy extends PassportStrategy(
+export class JwtRefreshTokenStrategy extends PassportStrategy(
   Strategy,
-  'jwt-refresh',
+  'jwt-refresh-token'
 ) {
+  
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_REFRESH_SECRET,
-      passReqToCallback: true,
+      secretOrKey: 'labelebiRefresh',
+        passReqToCallback: true,
+        
     });
-     
-  }
+    }
 
-  validate(req: Request, payload: any) {    
-    const refreshToken = req.get('Authorization').replace('Bearer', '').trim();   
-    const info= {...payload, refreshToken };
-    return {...payload, refreshToken };
-  }
+  validate(req: Request, payload: any) {
+    console.log("bonjour");
+    
+    if (!payload) {
+        throw new UnauthorizedException('Invalid token payload.');
+    }
+    const refreshToken = req.get('Authorization').replace('Bearer', '').trim();
+    if (!refreshToken) {
+        throw new UnauthorizedException('Refresh token not found in the request.');
+    }
+    return {...payload, refreshToken};
 }
+}
+

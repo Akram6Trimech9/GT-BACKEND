@@ -18,10 +18,19 @@ export class UsersController {
   create(@Body() createUserDto: UserDto) {    
     return this.usersService.register(createUserDto);
   }
-
+  @Get('patients')
+  async findAllUserwithoutDoctors() {
+    return  await  this.usersService.findAllPatientsWithoutDoctors();
+  }
+ 
   @Get('/')
   async findAll() {
     return await this.usersService.findAll();
+  }
+
+  @Get('doctors')
+  async getAllDoctors(){ 
+     return await this.usersService.findAllDoctors()
   }
   
   @Get('/search')
@@ -29,12 +38,26 @@ export class UsersController {
     const  letter= query.letter    
     return await this.usersService.searchUsers(letter);
   }
+
+  @Get('/search/doctors')
+  async searchDoctors(@Query() query: any) {  
+    const  letter= query.letter    
+    return await this.usersService.searchDoctors(letter);
+  }
   
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.usersService.findOne(id);
   }
-  
+
+ 
+  @Get('update/:patientId/:doctorId')
+ async  deletePatientFromDoctorList(@Param('patientId') patientId :string, @Param('doctorId') doctorId:string  ){
+   return await  this.usersService.deletePatientFromDoctorList(patientId,doctorId)
+
+  }
+ 
+
   @ApiOperation({ summary: 'searching for a user by email ' })
   @ApiResponse({ status: 201, description: 'The user has been successfully getted.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
@@ -84,4 +107,31 @@ export class UsersController {
       mimetype: file.mimetype,
     });
   }
+  @Post('addPatient')
+  async addPatientToDoctor(
+      @Body() obj: any,
+  ): Promise<any> {
+    await this.usersService.addPatientToDoctor(obj.doctorId, obj.patientId);   
+           return     true  
+  }
+  
+
+  @Patch(':patientId/addDoctor/:doctorId')
+  async addDoctorToPatient(
+    @Param('patientId') patientId: string,
+    @Param('doctorId') doctorId: string,
+  ): Promise<any> {
+    try {
+      const bool=  await this.usersService.addDoctorToPatient(patientId, doctorId);
+      return { message: 'Doctor added to the patient successfully' };
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  @Get('patients/:iddoctor')
+  async getPatientsByDoctor( @Param('iddoctor') iddoctor : string ) { 
+     return await this.usersService.findPatientsByDoctor(iddoctor)
+   }
+
 }

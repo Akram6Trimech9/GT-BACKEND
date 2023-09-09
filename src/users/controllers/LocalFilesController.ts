@@ -66,4 +66,24 @@ export default class LocalFilesController {
   UploadedBlog(@Param('imgpath') image, @Res() res) {
     return res.sendFile(image, { root: './uploadedFiles/blog' });
   }
+  @Get('consultation/:imgpath')
+  UploadedConsultations(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './uploadedFiles/consultation' });
+  }
+  @Get('analyses/:imgpath')
+  UploadedAnalysis(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './uploadedFiles/analyses' });
+  }
+  @Get('retourpourlesclients/:imgpath')
+  UploadedRetour(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './uploadedFiles/retourpourlesclients' });
+  }
+  @Get('demandedoc/:imgpath')
+  UploadedAnswer(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './uploadedFiles/demandedoc' });
+  }
+  @Get('rendezvousdocuments/:imgpath')
+  Uploadedrdv(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './uploadedFiles/rendezvousdocuments' });
+  }
 }

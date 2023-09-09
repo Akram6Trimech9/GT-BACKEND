@@ -24,11 +24,17 @@ export class RoomService {
       return this.roomRepository.save(newRoom);
   }
   async getRoom(roomId: string): Promise<RoomI> {
-    return this.roomRepository.findOneBy({id:roomId} )
+    const room =  await this.roomRepository
+    .createQueryBuilder('room')
+    .where('room.id = :roomId', { roomId })
+     .leftJoinAndSelect('room.users', 'users')
+     .getOne();      
+    return  room 
   }
   async getRoomsForUser(userId: string): Promise<RoomI[]> {
     const rooms = await this.roomRepository
       .createQueryBuilder('room')
+      .leftJoinAndSelect('room.joinedUsers','joinedUsers')
       .leftJoinAndSelect('room.users', 'user')
       .leftJoinAndSelect('user.avatar', 'avatar')
       .where('user.id = :userId', { userId })
