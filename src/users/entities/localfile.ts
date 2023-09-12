@@ -7,6 +7,7 @@ import { Consultation } from "src/consultations/entities/consultation.entity";
 import { AnswerDoc } from "src/demandedoc/entities/answerdemande.entity";
 import { DemandeDoc } from "src/demandedoc/entities/demandedoc.entity";
 import { DoctorAppointement } from "src/doctor-appointement/entities/doctor-appointement.entity";
+import { Question } from "src/question/entities/question.entity";
 import { Rdv } from "src/rdv/entities/rdv.entity";
 import { RetourClientAgency } from "src/retour-client-agency/entities/retour-client-agency.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
@@ -49,6 +50,9 @@ class LocalFile {
 
   @ManyToOne(()=>Analysis , Analysis=> Analysis.documents)
   analyses: Analysis
+
+  @ManyToOne(()=>Question , question=> question.documents)
+  question: Question
 
   @ManyToOne(()=>RetourClientAgency , retour=> retour.documents)
    retourClient : RetourClientAgency

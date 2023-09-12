@@ -86,4 +86,8 @@ export default class LocalFilesController {
   Uploadedrdv(@Param('imgpath') image, @Res() res) {
     return res.sendFile(image, { root: './uploadedFiles/rendezvousdocuments' });
   }
+  @Get('questions/:imgpath')
+  Uploadedquestion(@Param('imgpath') image, @Res() res) {
+    return res.sendFile(image, { root: './uploadedFiles/questions' });
+  }
 }

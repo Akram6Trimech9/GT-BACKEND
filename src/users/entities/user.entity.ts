@@ -9,6 +9,8 @@ import { Consultation } from "src/consultations/entities/consultation.entity";
 import { DemandeDoc } from "src/demandedoc/entities/demandedoc.entity";
 import { DoctorAppointement } from "src/doctor-appointement/entities/doctor-appointement.entity";
 import { Notification } from "src/notification/entities/notification.entity";
+import { QuestionComment } from "src/question/entities/comment.entity";
+ import { Question } from "src/question/entities/question.entity";
 import { Rdv } from "src/rdv/entities/rdv.entity";
 import { RetourClientAgency } from "src/retour-client-agency/entities/retour-client-agency.entity";
 import { Sendmessage } from "src/sendmessage/entities/sendmessage.entity";
@@ -128,6 +130,14 @@ export class User {
   @ManyToMany(() => Consultation, consultation => consultation.sharedWith)
   sharedConsultation: Consultation[];
   
+  @OneToMany(()=> Question , question => question.createdBy)
+  questions: Question[]
+
+  @OneToMany(()=> QuestionComment , questionComment =>  questionComment.createdBy)
+  questionComment :QuestionComment[]
+
+  @OneToMany(()=>   Question, favorite => favorite.savedBy )
+   favoritesPosts : Question[]
 
   constructor(firstName: string, lastName: string, email: string, country: string, address: string, password: string, role: Role, refreshtoken: string) {
     this.firstName = firstName;

@@ -1,0 +1,13 @@
+# Log files
+npm-debug.log
+
+# Node dependencies
+node_modules/
+
+# Dist directory
+/dist
+
+# Ignore git and cache
+.git
+.gitignore
+.cache/

@@ -51,7 +51,11 @@ import { SendmessageModule } from './sendmessage/sendmessage.module';
 import { Sendmessage } from './sendmessage/entities/sendmessage.entity';
 import { DoctorAppointementModule } from './doctor-appointement/doctor-appointement.module';
 import { DoctorAppointement } from './doctor-appointement/entities/doctor-appointement.entity';
-@Module({
+import { QuestionModule } from './question/question.module';
+import { Question } from './question/entities/question.entity';
+import { QuestionComment } from './question/entities/comment.entity';
+import { QuestionCategory } from './question/entities/questionService.entity';
+ @Module({
   imports: [ 
     
     TypeOrmModule.forRoot({
@@ -59,9 +63,9 @@ import { DoctorAppointement } from './doctor-appointement/entities/doctor-appoin
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'password',
+      password: process.env.MYSQL_ROOT_PASSWORD,
       database: 'gt',
-      entities: [User,connectedUserEntity,CompleteInfo,Sendmessage, DoctorAppointement , MessageEntity,JoinedRoomEntity,Room,LocalFile,Slider,Comments,Horaires,history,AnswerQuestion,subscriber,AgencyInfo,Interventions,blog,Contacts , Rdv  , Notification , Consultation  ,CheckupCategory , checkupoffers , Analysis , DemandeDoc , AnswerDoc  , Consultationfeedback , RetourClientAgency],
+      entities: [User,connectedUserEntity,CompleteInfo,Sendmessage, DoctorAppointement , MessageEntity,JoinedRoomEntity,Room,LocalFile,Slider,Comments,Horaires,history,AnswerQuestion,subscriber,AgencyInfo,Interventions,blog,Contacts , Rdv  , Notification , Consultation  ,CheckupCategory , checkupoffers , Analysis , DemandeDoc , AnswerDoc  , Consultationfeedback , RetourClientAgency ,Question,QuestionComment , QuestionCategory],
       synchronize: true,
     }),
     ConfigModule.forRoot({
@@ -75,7 +79,6 @@ import { DoctorAppointement } from './doctor-appointement/entities/doctor-appoin
     ClientPageModule,
      ChatModule,
      UsersModule  , 
-
       DemandedocModule,
       ConsultationsModule,
       RdvModule,
@@ -88,7 +91,8 @@ import { DoctorAppointement } from './doctor-appointement/entities/doctor-appoin
       ConsultationfeedbackModule,
       RetourClientAgencyModule,
       SendmessageModule,
-      DoctorAppointementModule  
+      DoctorAppointementModule,
+      QuestionModule  
     ],
 
   controllers: [AppController],
@@ -114,6 +118,8 @@ import { DoctorAppointement } from './doctor-appointement/entities/doctor-appoin
         { path: '/uploadedFiles/retourpourlesclients/:filename', method: RequestMethod.GET },
         { path: '/uploadedFiles/avatar/:filename', method: RequestMethod.GET },
         { path: '/uploadedFiles/slider/:filename', method: RequestMethod.GET },
+        { path: '/uploadedFiles/questions/:filename', method: RequestMethod.GET },
+
         { path: '/uploadedFiles/blog/:filename', method: RequestMethod.GET },
         { path: '/uploadedFiles/history-pic/:filename', method: RequestMethod.GET },
         { path: '/email-confirmation/confirm', method: RequestMethod.POST },
