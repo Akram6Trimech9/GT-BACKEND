@@ -1,0 +1,9 @@
+apiServer:
+  image:
+    repository: akram6trimech9/nest-backend
+    tag: latest
+
+client:
+  image:
+    repository: akram6trimech9/client-front
+    tag: 1
